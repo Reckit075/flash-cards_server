@@ -3,7 +3,7 @@ import FlashCards from '../models/FlashCards.mjs'
 
 export const flashCards_post_createOne = (req,res) =>{
     try {
-        const { language,type,question,answear } = req.body
+        const {language,type,question,answear} = req.body
         console.log(language,type,question,answear)
         const flashCard = new FlashCards({
             language,
@@ -24,9 +24,10 @@ export const flashCards_post_createOne = (req,res) =>{
     }
 }
 
-export const flashCards_get_all = async (req,res) => {
+export const flashCards_get_byType = async (req,res) => {
+    let type = req.query.type
     try {
-        const flashCards = await FlashCards.find()
+        const flashCards = await FlashCards.find({"language":type})
             res.json({ flashCards })
     }
     catch (error) {
